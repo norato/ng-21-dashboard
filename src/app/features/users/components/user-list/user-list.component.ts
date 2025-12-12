@@ -3,11 +3,12 @@ import { FormControl } from '@angular/forms';
 import { UserStore } from '../../store/user.store';
 import { UserCardComponent } from '../user-card/user-card.component';
 import { SearchInputComponent } from '../../../../shared/components/search-input/search-input.component';
+import { UserCardSkeletonComponent } from '../user-card-skeleton/user-card-skeleton.component';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [UserCardComponent, SearchInputComponent],
+  imports: [UserCardComponent, SearchInputComponent, UserCardSkeletonComponent],
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {

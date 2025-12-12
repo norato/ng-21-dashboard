@@ -44,7 +44,9 @@ npm run build
 
 - Dark/Light theme toggle with persistence
 - User listing from JSONPlaceholder API
+- User search with debounce and request cancellation
 - Standalone components
 - Signal-based state management with named actions for better debugging
 - DDD (Domain-Driven Design) architecture
+- Skeleton screens for loading states (better UX than spinners)
 - Comprehensive test coverage

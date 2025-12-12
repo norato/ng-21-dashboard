@@ -1,0 +1,51 @@
+<p-card>
+  <ng-template #header>
+    <div class="flex justify-center py-8 bg-gradient-to-r from-amber-100 to-amber-200 dark:from-amber-900/30 dark:to-amber-800/30">
+      <p-skeleton shape="circle" size="6rem"></p-skeleton>
+    </div>
+  </ng-template>
+
+  <div class="flex flex-col gap-6">
+    <!-- Name and username -->
+    <div class="text-center">
+      <p-skeleton width="60%" height="2rem" class="mb-2"></p-skeleton>
+      <p-skeleton width="40%" height="1rem"></p-skeleton>
+    </div>
+
+    <!-- Info grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Email -->
+      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <p-skeleton width="4rem" height="1rem" class="mb-2"></p-skeleton>
+        <p-skeleton width="80%" height="0.875rem"></p-skeleton>
+      </div>
+
+      <!-- Phone -->
+      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <p-skeleton width="4rem" height="1rem" class="mb-2"></p-skeleton>
+        <p-skeleton width="70%" height="0.875rem"></p-skeleton>
+      </div>
+
+      <!-- Website -->
+      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <p-skeleton width="5rem" height="1rem" class="mb-2"></p-skeleton>
+        <p-skeleton width="75%" height="0.875rem"></p-skeleton>
+      </div>
+
+      <!-- Address -->
+      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
+        <p-skeleton width="5rem" height="1rem" class="mb-2"></p-skeleton>
+        <p-skeleton width="90%" height="0.875rem" class="mb-1"></p-skeleton>
+        <p-skeleton width="60%" height="0.875rem"></p-skeleton>
+      </div>
+    </div>
+
+    <!-- Company section -->
+    <div class="bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20 rounded-lg p-6 border border-amber-200 dark:border-amber-700">
+      <p-skeleton width="6rem" height="1.25rem" class="mb-3"></p-skeleton>
+      <p-skeleton width="70%" height="1.5rem" class="mb-2"></p-skeleton>
+      <p-skeleton width="85%" height="1rem" class="mb-2"></p-skeleton>
+      <p-skeleton width="50%" height="0.875rem"></p-skeleton>
+    </div>
+  </div>
+</p-card>
