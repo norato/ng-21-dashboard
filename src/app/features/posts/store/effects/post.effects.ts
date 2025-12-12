@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { GLOBAL_ERROR_CODES } from '../../../../core/constants/global-errors';
 import { ToastService } from '../../../../core/services/toast.service';
 import { PostService } from '../../services/post.service';
 import * as PostActions from '../actions/post.actions';
@@ -19,7 +20,9 @@ export class PostEffects {
         this.postService.getPosts().pipe(
           map((posts) => PostActions.loadPostsSuccess({ posts })),
           catchError((error) => {
-            this.toastService.showError('Error loading posts');
+            if (!GLOBAL_ERROR_CODES.includes(error.status)) {
+              this.toastService.showError('Error loading posts');
+            }
             return of(PostActions.loadPostsFailure({ error: error.message }));
           })
         )
@@ -34,7 +37,9 @@ export class PostEffects {
         this.postService.getPostById(id).pipe(
           map((post) => PostActions.loadPostSuccess({ post })),
           catchError((error) => {
-            this.toastService.showError('Error loading post');
+            if (!GLOBAL_ERROR_CODES.includes(error.status)) {
+              this.toastService.showError('Error loading post');
+            }
             return of(PostActions.loadPostFailure({ error: error.message }));
           })
         )

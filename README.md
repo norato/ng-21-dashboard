@@ -77,8 +77,22 @@ Both implementations follow the same architectural principles (separation of con
 
 ## Error Handling
 
-The application uses PrimeNG Toast for displaying error notifications to users. This approach provides:
+The application implements a two-tier error handling strategy using PrimeNG Toast:
+
+### Global Error Interceptor
+HTTP errors with status codes 404 and 500 are handled globally by the `errorInterceptor`:
+- Displays generic, user-friendly toast messages
+- Centralized in `src/app/core/constants/global-errors.ts` for easy maintenance
+- Adding new global error codes only requires updating the `GLOBAL_ERROR_CODES` array
+
+### Local Error Handling
+All other HTTP errors are handled locally in their respective stores:
+- **UserStore** (@ngrx/signals): Handles user-specific errors with contextual messages
+- **PostEffects** (@ngrx/effects): Handles post-specific errors with contextual messages
+- Stores check against `GLOBAL_ERROR_CODES` to avoid duplicate toast notifications
+
+### Benefits
 - **User-friendly messages**: Generic, non-technical error messages that don't expose implementation details
 - **Consistent UX**: All API errors are displayed via toast notifications at the top-right of the screen
 - **Security**: Technical error details (error.message) are kept in the application state for debugging but not shown to end users
-- **Integration**: ToastService is injected into both UserStore (@ngrx/signals) and PostEffects (@ngrx/effects) for centralized error handling
+- **Maintainability**: Global error codes centralized in a single constant for easy updates
