@@ -51,6 +51,7 @@ npm run build
 - Signal-based state management with named actions for better debugging
 - DDD (Domain-Driven Design) architecture
 - Skeleton screens for loading states (better UX than spinners)
+- Toast notifications for user-friendly error messages
 - Comprehensive test coverage
 
 ## State Management Architecture
@@ -73,3 +74,11 @@ To demonstrate comprehensive NgRx knowledge, the Posts feature implements the tr
 - Selectors using `createSelector`
 
 Both implementations follow the same architectural principles (separation of concerns, testability, and maintainability) while showcasing different state management paradigms within the NgRx ecosystem.
+
+## Error Handling
+
+The application uses PrimeNG Toast for displaying error notifications to users. This approach provides:
+- **User-friendly messages**: Generic, non-technical error messages that don't expose implementation details
+- **Consistent UX**: All API errors are displayed via toast notifications at the top-right of the screen
+- **Security**: Technical error details (error.message) are kept in the application state for debugging but not shown to end users
+- **Integration**: ToastService is injected into both UserStore (@ngrx/signals) and PostEffects (@ngrx/effects) for centralized error handling

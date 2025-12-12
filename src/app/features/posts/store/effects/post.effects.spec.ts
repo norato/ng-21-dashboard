@@ -4,8 +4,10 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
+import { MockProvider } from 'ng-mocks';
 import { PostEffects } from './post.effects';
 import { PostService } from '../../services/post.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import * as PostActions from '../actions/post.actions';
 
 describe('PostEffects', () => {
@@ -24,6 +26,7 @@ describe('PostEffects', () => {
         PostEffects,
         provideMockActions(() => actions$),
         { provide: PostService, useValue: postServiceMock },
+        MockProvider(ToastService),
       ],
     });
 

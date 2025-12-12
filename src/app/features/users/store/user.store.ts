@@ -4,6 +4,7 @@ import { tapResponse } from '@ngrx/operators';
 import { signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { debounceTime, pipe, switchMap } from 'rxjs';
+import { ToastService } from '../../../core/services/toast.service';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
@@ -31,7 +32,7 @@ export const UserStore = signalStore(
       return store.users().find((user) => user.id === userId) ?? null;
     }),
   })),
-  withMethods((store, userService = inject(UserService)) => ({
+  withMethods((store, userService = inject(UserService), toastService = inject(ToastService)) => ({
     loadUsers: rxMethod<void>(
       pipe(
         switchMap(() => {
@@ -40,11 +41,13 @@ export const UserStore = signalStore(
             tapResponse({
               next: (users) =>
                 updateState(store, '[users] load users success', { users, isLoading: false }),
-              error: (error: Error) =>
+              error: (error: Error) => {
+                toastService.showError('Error loading users');
                 updateState(store, '[users] load users error', {
                   error: error.message,
                   isLoading: false,
-                }),
+                });
+              },
             })
           );
         })
@@ -74,11 +77,13 @@ export const UserStore = signalStore(
                   isLoading: false,
                 });
               },
-              error: (error: Error) =>
+              error: (error: Error) => {
+                toastService.showError('Error loading user');
                 updateState(store, '[users] load user by id error', {
                   error: error.message,
                   isLoading: false,
-                }),
+                });
+              },
             })
           );
         })
@@ -99,11 +104,13 @@ export const UserStore = signalStore(
             tapResponse({
               next: (users) =>
                 updateState(store, '[users] search users success', { users, isLoading: false }),
-              error: (error: Error) =>
+              error: (error: Error) => {
+                toastService.showError('Error searching users');
                 updateState(store, '[users] search users error', {
                   error: error.message,
                   isLoading: false,
-                }),
+                });
+              },
             })
           );
         })

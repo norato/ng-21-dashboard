@@ -2,8 +2,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { MockProvider } from 'ng-mocks';
 import 'zone.js';
 import 'zone.js/testing';
+import { ToastService } from '../../../core/services/toast.service';
 import { User } from '../models/user.model';
 import { UserStore } from './user.store';
 
@@ -39,7 +41,12 @@ describe('UserStore', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [UserStore, provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        UserStore,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        MockProvider(ToastService),
+      ],
     });
 
     store = TestBed.inject(UserStore);
