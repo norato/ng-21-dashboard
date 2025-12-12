@@ -1,23 +1,22 @@
-import { TestBed } from '@angular/core/testing';
+import { MockBuilder, MockRender } from 'ng-mocks';
+import 'zone.js';
+import 'zone.js/testing';
 import { App } from './app';
+import { ThemeToggleComponent } from './shared/components/theme-toggle/theme-toggle.component';
 
 describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+  beforeEach(() => {
+    return MockBuilder(App).mock(ThemeToggleComponent);
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    const fixture = MockRender(App);
+    expect(fixture.point.componentInstance).toBeTruthy();
   });
 
-  it('should render title', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
+  it('should render title', () => {
+    const fixture = MockRender(App);
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ng-21-dashboard');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Welcome to Our Application');
   });
 });
