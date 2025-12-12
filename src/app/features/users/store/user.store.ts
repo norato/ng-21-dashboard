@@ -4,8 +4,7 @@ import { tapResponse } from '@ngrx/operators';
 import { signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { debounceTime, pipe, switchMap } from 'rxjs';
-import { GLOBAL_ERROR_CODES } from '../../../core/constants/global-errors';
-import { ToastService } from '../../../core/services/toast.service';
+import { GLOBAL_ERROR_CODES, ToastService } from '$core';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 

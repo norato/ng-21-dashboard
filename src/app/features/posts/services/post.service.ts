@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '$env';
 import { Post } from '../models/post.model';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Post } from '../models/post.model';
 })
 export class PostService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+  private readonly apiUrl = `${environment.apiUrl}/posts`;
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.apiUrl);

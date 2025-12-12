@@ -7,7 +7,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { MessageService } from 'primeng/api';
 import Aura from '@primeuix/themes/aura';
 import { providePrimeNG } from 'primeng/config';
-import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { errorInterceptor } from '$core';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

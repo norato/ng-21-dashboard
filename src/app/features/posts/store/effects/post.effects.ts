@@ -2,8 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { GLOBAL_ERROR_CODES } from '../../../../core/constants/global-errors';
-import { ToastService } from '../../../../core/services/toast.service';
+import { GLOBAL_ERROR_CODES, ToastService } from '$core';
 import { PostService } from '../../services/post.service';
 import * as PostActions from '../actions/post.actions';
 

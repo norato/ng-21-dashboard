@@ -1,8 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { GLOBAL_ERROR_CODES } from '../constants/global-errors';
-import { ToastService } from '../services/toast.service';
+import { GLOBAL_ERROR_CODES, ToastService } from '$core';
 
 const ERROR_MESSAGES: Record<number, string> = {
   404: 'Resource not found',

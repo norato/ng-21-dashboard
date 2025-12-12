@@ -1,9 +1,9 @@
+import { SearchInputComponent } from '$shared';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UserStore } from '../../store/user.store';
-import { UserCardComponent } from '../user-card/user-card.component';
-import { SearchInputComponent } from '../../../../shared/components/search-input/search-input.component';
 import { UserCardSkeletonComponent } from '../user-card-skeleton/user-card-skeleton.component';
+import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
   selector: 'app-user-list',

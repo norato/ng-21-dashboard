@@ -15,6 +15,26 @@ Angular 20 dashboard application with modern tooling and component library.
 - **ng-mocks** - Testing utilities
 - **Storybook** - Component documentation
 
+## Project Configuration
+
+### Environment Variables
+The application uses Angular's environment configuration pattern for managing environment-specific settings:
+- **environment.ts** - Base configuration (development)
+- **environment.development.ts** - Development-specific settings
+- **environment.production.ts** - Production-specific settings
+
+Configuration includes `apiUrl` and other environment-specific values. The build process uses `fileReplacements` in `angular.json` to swap environments based on the build configuration.
+
+### TypeScript Path Mapping
+Clean imports using custom path aliases defined in `tsconfig.json`:
+- **`$env`** - Direct access to environment configuration
+- **`$core`** - Core functionality (services, interceptors, constants)
+- **`$core/*`** - Granular access to core modules
+- **`$shared`** - Shared components via barrel exports
+- **`$shared/*`** - Granular access to shared modules
+
+This eliminates deep relative imports like `../../../../` and improves code maintainability.
+
 ## Development
 
 ```bash
