@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "storybook": "ng run ng-21-dashboard:storybook",
+    "build-storybook": "ng run ng-21-dashboard:build-storybook"
   },
   "prettier": {
     "printWidth": 100,
@@ -23,6 +25,7 @@
   "private": true,
   "packageManager": "npm@11.6.2",
   "dependencies": {
+    "@angular/animations": "^20.3.15",
     "@angular/common": "^20.0.0",
     "@angular/compiler": "^20.0.0",
     "@angular/core": "^20.0.0",
@@ -34,15 +37,28 @@
     "primeicons": "^7.0.0",
     "primeng": "^20.0.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "^0.15.1"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "^0.2000.0",
+    "@angular-devkit/build-angular": "^20.0.0",
+    "@angular-devkit/core": "^20.0.0",
     "@angular/build": "^20.0.0",
     "@angular/cli": "^20.0.0",
     "@angular/compiler-cli": "^20.0.0",
+    "@angular/platform-browser-dynamic": "^20.0.0",
+    "@compodoc/compodoc": "^1.1.32",
+    "@storybook/addon-a11y": "^10.1.7",
+    "@storybook/addon-docs": "^10.1.7",
+    "@storybook/addon-onboarding": "^10.1.7",
+    "@storybook/angular": "^10.1.7",
     "@tailwindcss/postcss": "^4.1.12",
+    "css-loader": "^7.1.2",
     "jsdom": "^27.1.0",
     "postcss": "^8.5.3",
+    "storybook": "^10.1.7",
+    "style-loader": "^4.0.0",
     "tailwindcss": "^4.1.12",
     "typescript": "~5.8.0",
     "vitest": "^3.1.1"
