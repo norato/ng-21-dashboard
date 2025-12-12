@@ -21,7 +21,6 @@ export class UserDetailComponent implements OnDestroy {
     effect(() => {
       const userId = this.id();
       if (userId) {
-        // Faz o fetch do usuário pela API
         this.store.loadUserById(+userId);
       }
     });

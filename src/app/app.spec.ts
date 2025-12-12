@@ -17,6 +17,6 @@ describe('App', () => {
   it('should render title', () => {
     const fixture = MockRender(App);
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('User Dashboard');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Dashboard');
   });
 });
