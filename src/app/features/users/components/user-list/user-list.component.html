@@ -1,34 +1,30 @@
-<div class="card">
-  <p-table
-    [value]="store.users()"
-    [loading]="store.isLoading()"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    class="p-datatable-striped"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Company</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-user>
-      <tr>
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.company.name }}</td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="emptymessage">
-      <tr>
-        <td colspan="3" class="text-center">
-          @if (store.error()) {
-          <span class="text-red-500">Error: {{ store.error() }}</span>
-          } @else {
-          <span>No users found</span>
-          }
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+<div class="max-w-7xl mx-auto">
+  <div class="mb-6">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Users</h2>
+    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+      Manage and view all users in the system
+    </p>
+  </div>
+
+  @if (store.isLoading()) {
+  <div class="flex justify-center items-center py-12">
+    <i class="pi pi-spinner pi-spin text-5xl text-amber-500"></i>
+  </div>
+  } @else if (store.error()) {
+  <div class="flex flex-col items-center gap-4 py-12">
+    <i class="pi pi-exclamation-circle text-6xl text-red-500"></i>
+    <span class="text-red-600 dark:text-red-400 font-medium">Error: {{ store.error() }}</span>
+  </div>
+  } @else if (store.users().length === 0) {
+  <div class="flex flex-col items-center gap-4 py-12">
+    <i class="pi pi-users text-6xl text-gray-400"></i>
+    <span class="text-gray-500 dark:text-gray-400">No users found</span>
+  </div>
+  } @else {
+  <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    @for (user of store.users(); track user.id) {
+      <app-user-card [user]="user" />
+    }
+  </div>
+  }
 </div>
