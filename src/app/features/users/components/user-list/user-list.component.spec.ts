@@ -15,6 +15,7 @@ describe('UserListComponent', () => {
         isLoading: signal(false),
         error: signal(null),
         loadUsers: vi.fn(),
+        searchUsers: vi.fn(),
       })
       .mock(TableModule);
   });

@@ -3,7 +3,7 @@ import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
 import { signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe, switchMap } from 'rxjs';
+import { debounceTime, pipe, switchMap } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 
@@ -90,5 +90,24 @@ export const UserStore = signalStore(
     clearSelectedUser() {
       updateState(store, '[users] clear selected user', { selectedUserId: null });
     },
+    searchUsers: rxMethod<string>(
+      pipe(
+        debounceTime(300),
+        switchMap((query) => {
+          updateState(store, '[users] search users started', { isLoading: true, error: null });
+          return userService.searchUsers(query).pipe(
+            tapResponse({
+              next: (users) =>
+                updateState(store, '[users] search users success', { users, isLoading: false }),
+              error: (error: Error) =>
+                updateState(store, '[users] search users error', {
+                  error: error.message,
+                  isLoading: false,
+                }),
+            })
+          );
+        })
+      )
+    ),
   }))
 );

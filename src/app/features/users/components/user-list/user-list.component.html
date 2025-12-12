@@ -6,6 +6,10 @@
     </p>
   </div>
 
+  <div class="mb-6">
+    <app-search-input [control]="searchControl" placeholder="Search users by name..." />
+  </div>
+
   @if (store.isLoading()) {
   <div class="flex justify-center items-center py-12">
     <i class="pi pi-spinner pi-spin text-5xl text-amber-500"></i>

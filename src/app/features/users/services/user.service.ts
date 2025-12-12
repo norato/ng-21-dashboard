@@ -17,4 +17,11 @@ export class UserService {
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
+
+  searchUsers(query: string): Observable<User[]> {
+    if (!query.trim()) {
+      return this.getUsers();
+    }
+    return this.http.get<User[]>(`${this.apiUrl}?name_like=${query}`);
+  }
 }
