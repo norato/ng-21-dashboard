@@ -13,4 +13,11 @@ export const routes: Routes = [
         (m) => m.UserListComponent
       ),
   },
+  {
+    path: 'users/:id',
+    loadComponent: () =>
+      import('./features/users/components/user-detail/user-detail.component').then(
+        (m) => m.UserDetailComponent
+      ),
+  },
 ];

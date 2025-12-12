@@ -29,8 +29,25 @@ describe('UserService', () => {
       {
         id: 1,
         name: 'John Doe',
+        username: 'johndoe',
         email: 'john@example.com',
-        company: { name: 'Acme Corp' },
+        address: {
+          street: 'Main St',
+          suite: 'Apt 1',
+          city: 'New York',
+          zipcode: '10001',
+          geo: {
+            lat: '40.7128',
+            lng: '-74.0060',
+          },
+        },
+        phone: '123-456-7890',
+        website: 'johndoe.com',
+        company: {
+          name: 'Acme Corp',
+          catchPhrase: 'Innovation at its finest',
+          bs: 'cutting-edge solutions',
+        },
       },
     ];
 
