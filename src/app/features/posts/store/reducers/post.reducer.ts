@@ -1,3 +1,4 @@
+import { loadFromLocalStorage, STORAGE_KEYS } from '$core';
 import { createReducer, on } from '@ngrx/store';
 import { Post } from '../../models/post.model';
 import * as PostActions from '../actions/post.actions';
@@ -9,8 +10,10 @@ export interface PostState {
   error: string | null;
 }
 
+const persistedPosts = loadFromLocalStorage<Post[]>(STORAGE_KEYS.POSTS_STATE);
+
 export const initialState: PostState = {
-  posts: [],
+  posts: persistedPosts || [],
   selectedPost: null,
   isLoading: false,
   error: null,

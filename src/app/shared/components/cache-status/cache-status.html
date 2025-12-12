@@ -1,0 +1,12 @@
+<div class="flex items-center gap-2">
+  <span class="text-sm text-gray-500 dark:text-gray-400">{{ dataAge() }}</span>
+  <p-button
+    icon="pi pi-refresh"
+    [rounded]="true"
+    [text]="true"
+    severity="secondary"
+    (onClick)="onReload()"
+    pTooltip="Recarregar dados"
+    tooltipPosition="bottom"
+  />
+</div>

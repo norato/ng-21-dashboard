@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { postReducer } from './features/posts/store/reducers/post.reducer';
+import { provideState } from '@ngrx/store';
 import { PostEffects } from './features/posts/store/effects/post.effects';
+import { postsPersistenceMetaReducer } from './features/posts/store/meta-reducers/persistence.meta-reducer';
+import { postReducer } from './features/posts/store/reducers/post.reducer';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,9 @@ export const routes: Routes = [
       import('./features/posts/components/post-list/post-list.component').then(
         (m) => m.PostListComponent
       ),
-    providers: [provideState('posts', postReducer), provideEffects([PostEffects])],
+    providers: [
+      provideState('posts', postReducer, { metaReducers: [postsPersistenceMetaReducer] }),
+      provideEffects([PostEffects]),
+    ],
   },
 ];

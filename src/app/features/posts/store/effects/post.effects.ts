@@ -1,8 +1,8 @@
+import { CacheMessageBus, GLOBAL_ERROR_CODES, STORAGE_KEYS, ToastService } from '$core';
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { GLOBAL_ERROR_CODES, ToastService } from '$core';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { PostService } from '../../services/post.service';
 import * as PostActions from '../actions/post.actions';
 
@@ -11,6 +11,7 @@ export class PostEffects {
   private readonly actions$ = inject(Actions);
   private readonly postService = inject(PostService);
   private readonly toastService = inject(ToastService);
+  private readonly cacheBus = inject(CacheMessageBus);
 
   loadPosts$ = createEffect(() =>
     this.actions$.pipe(
@@ -27,6 +28,15 @@ export class PostEffects {
         )
       )
     )
+  );
+
+  notifyOnSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostActions.loadPostsSuccess),
+        tap(() => this.cacheBus.notifyDataSaved(STORAGE_KEYS.POSTS_STATE))
+      ),
+    { dispatch: false }
   );
 
   loadPost$ = createEffect(() =>

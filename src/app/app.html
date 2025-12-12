@@ -4,7 +4,10 @@
   <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
     <div class="flex justify-between items-center px-8 py-4">
       <h1 class="text-2xl font-bold text-amber-500 dark:text-amber-400">Dashboard</h1>
-      <app-theme-toggle />
+      <div class="flex items-center gap-4">
+        <app-cache-status />
+        <app-theme-toggle />
+      </div>
     </div>
     <nav class="px-8 pb-4">
       <div class="flex gap-4">

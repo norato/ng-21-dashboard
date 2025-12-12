@@ -95,6 +95,60 @@ To demonstrate comprehensive NgRx knowledge, the Posts feature implements the tr
 
 Both implementations follow the same architectural principles (separation of concerns, testability, and maintainability) while showcasing different state management paradigms within the NgRx ecosystem.
 
+## Cache System
+
+The application implements a client-side caching mechanism to reduce redundant API calls and provide immediate data access, using `localStorage` persistence with TTL validation and a Message Bus pattern for efficient component communication.
+
+### Architecture Principles
+
+- **Message Bus Pattern**: `CacheMessageBus` service acts as a central communication hub for cache-related events
+- **localStorage Persistence**: Data stored client-side with TTL validation for freshness
+- **Page-Level Responsibility**: Feature pages register their active store and handle reload requests
+- **Zero Coupling**: Header components interact only with the `CacheMessageBus`, not specific stores
+
+### Key Components
+
+- **`CacheMessageBus`** (`src/app/core/services/cache-message-bus.service.ts`): Central event bus tracking the currently active store via `BehaviorSubject`
+- **`CacheStatusComponent`** (`src/app/shared/components/cache-status/`): Unified UI component displaying data age and reload button. Uses RxJS `interval()` with `takeUntilDestroyed()` for periodic updates (every 60s), providing automatic cleanup without manual lifecycle management
+- **Feature Pages**: `UserListComponent` and `PostListComponent` register which store they're using
+- **Stores/Effects**: `UserStore` and `PostEffects` notify when data is saved
+
+### Cache Flow
+
+1. **Page Activation**: When a page initializes, it registers its store with the cache bus
+   ```typescript
+   this.cacheBus.setActiveStore(STORAGE_KEYS.USER_STATE);
+   ```
+
+2. **Reload Listener**: Pages subscribe to reload requests filtered by their store name
+   ```typescript
+   this.cacheBus.reloadRequested$
+     .pipe(filter((storeName) => storeName === STORAGE_KEYS.USER_STATE))
+     .subscribe(() => {
+       clearFromLocalStorage(STORAGE_KEYS.USER_STATE);
+       this.store.loadUsers();
+     });
+   ```
+
+3. **Data Saved Notification**: After successful data load, stores notify the cache bus
+   ```typescript
+   cacheBus.notifyDataSaved(STORAGE_KEYS.USER_STATE);
+   ```
+
+4. **Automatic UI Updates**: `CacheStatusComponent` reacts to active store changes, displaying "Atualizado há X minutos"
+
+5. **Manual Reload**: Reload button clears `localStorage` and dispatches reload via the bus
+
+### Integration with State Management
+
+**Signal-based NgRx (UserStore)**:
+- Calls `cacheBus.notifyDataSaved()` in `tapResponse` success handler
+- Uses `rxMethod` for reactive data loading
+
+**Classic NgRx (PostEffects)**:
+- Calls `cacheBus.notifyDataSaved()` in dedicated `notifyOnSuccess$` effect
+- Uses `createEffect` with `tap` operator
+
 ## Error Handling
 
 The application implements a two-tier error handling strategy using PrimeNG Toast:
