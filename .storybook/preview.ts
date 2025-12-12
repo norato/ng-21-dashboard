@@ -7,9 +7,6 @@ import Lara from '@primeng/themes/lara';
 import docJson from "../documentation.json";
 setCompodocJson(docJson);
 
-// Import PrimeNG styles
-import './primeng-styles.css';
-
 const preview: Preview = {
   decorators: [
     applicationConfig({

@@ -3,13 +3,23 @@
     "interfaces": [
         {
             "name": "User",
-            "id": "interface-User-effea297fc41e18d2c3cb0f23391d8adaf381889daa66a40a1c6d5a00e0fe74fa5fdf9d25b3dc7556030c3b744aaf1a5475cc8d6595d922042ea68fe30162dcb",
+            "id": "interface-User-7015c7a05666931f9aa039e4b1fe2dc5ff9407a3e7c66804139f4ce552209b70c51a2214affd3620efa43e622e2e8e4bfcb3606c7f33405dc54bcda91a5b9e18",
             "file": "src/app/features/users/models/user.model.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "export interface User {\n  id: number;\n  name: string;\n  email: string;\n  company: {\n    name: string;\n  };\n}\n",
+            "sourceCode": "export interface User {\n  id: number;\n  name: string;\n  username: string;\n  email: string;\n  address: {\n    street: string;\n    suite: string;\n    city: string;\n    zipcode: string;\n    geo: {\n      lat: string;\n      lng: string;\n    };\n  };\n  phone: string;\n  website: string;\n  company: {\n    name: string;\n    catchPhrase: string;\n    bs: string;\n  };\n}\n",
             "properties": [
+                {
+                    "name": "address",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
                 {
                     "name": "company",
                     "deprecated": false,
@@ -18,7 +28,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 5
+                    "line": 18
                 },
                 {
                     "name": "email",
@@ -28,7 +38,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 4
+                    "line": 5
                 },
                 {
                     "name": "id",
@@ -49,6 +59,36 @@
                     "optional": false,
                     "description": "",
                     "line": 3
+                },
+                {
+                    "name": "phone",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "username",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "website",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 }
             ],
             "indexSignatures": [],
@@ -60,7 +100,7 @@
     "injectables": [
         {
             "name": "UserService",
-            "id": "injectable-UserService-39642e8ac46c9b83b1e69239dea28d78d39b586cefe111bff47dd50056dfdf7467587a1f75435f6c9ec83c157ef8058e6825d29178c345cd392f981592bfbbb0",
+            "id": "injectable-UserService-04f7052112e60f1ce78e220f743f4b7f7148b8d24811cd104b78a7766debb4ac506df47da3cb6e52c3a1798f6f0d7f423fac77f14191f304d1c649699bf7d2f8",
             "file": "src/app/features/users/services/user.service.ts",
             "properties": [
                 {
@@ -96,6 +136,34 @@
             ],
             "methods": [
                 {
+                    "name": "getUserById",
+                    "args": [
+                        {
+                            "name": "id",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<User>",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "id",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
                     "name": "getUsers",
                     "args": [],
                     "optional": false,
@@ -104,13 +172,41 @@
                     "line": 13,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "searchUsers",
+                    "args": [
+                        {
+                            "name": "query",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<User[]>",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "query",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { inject, Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable } from 'rxjs';\nimport { User } from '../models/user.model';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class UserService {\n  private readonly http = inject(HttpClient);\n  private readonly apiUrl = 'https://jsonplaceholder.typicode.com/users';\n\n  getUsers(): Observable<User[]> {\n    return this.http.get<User[]>(this.apiUrl);\n  }\n}\n",
+            "sourceCode": "import { inject, Injectable } from '@angular/core';\nimport { HttpClient } from '@angular/common/http';\nimport { Observable } from 'rxjs';\nimport { User } from '../models/user.model';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class UserService {\n  private readonly http = inject(HttpClient);\n  private readonly apiUrl = 'https://jsonplaceholder.typicode.com/users';\n\n  getUsers(): Observable<User[]> {\n    return this.http.get<User[]>(this.apiUrl);\n  }\n\n  getUserById(id: number): Observable<User> {\n    return this.http.get<User>(`${this.apiUrl}/${id}`);\n  }\n\n  searchUsers(query: string): Observable<User[]> {\n    if (!query.trim()) {\n      return this.getUsers();\n    }\n    return this.http.get<User[]>(`${this.apiUrl}?name_like=${query}`);\n  }\n}\n",
             "extends": [],
             "type": "injectable"
         }
@@ -164,6 +260,72 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div class=\"min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300\">\n  <header class=\"flex justify-between items-center px-8 py-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800\">\n    <h1 class=\"text-2xl font-bold text-amber-500 dark:text-amber-400\">User Dashboard</h1>\n    <app-theme-toggle />\n  </header>\n\n  <main class=\"p-8\">\n    <router-outlet />\n  </main>\n</div>\n"
+        },
+        {
+            "name": "SearchInputComponent",
+            "id": "component-SearchInputComponent-2c6a8df671ec1436fcf15a970a7d92294870b6c5cd169cbc6dfc23dbd69135adacc14ead30fa9ec84750fe473b0e12cdac8036fff87960af3d40c6d804cdebaa",
+            "file": "src/app/shared/components/search-input/search-input.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-search-input",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./search-input.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "control",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormControl<string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "required": true
+                },
+                {
+                    "name": "placeholder",
+                    "defaultValue": "'Search...'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 12,
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "ReactiveFormsModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, input } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\n\n@Component({\n  selector: 'app-search-input',\n  standalone: true,\n  imports: [ReactiveFormsModule],\n  templateUrl: './search-input.component.html',\n})\nexport class SearchInputComponent {\n  control = input.required<FormControl<string>>();\n  placeholder = input<string>('Search...');\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"relative\">\n  <i class=\"pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400\"></i>\n  <input\n    type=\"text\"\n    [formControl]=\"control()\"\n    [placeholder]=\"placeholder()\"\n    class=\"w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent\"\n  />\n</div>\n"
         },
         {
             "name": "ThemeToggleComponent",
@@ -315,8 +477,305 @@
             "extends": []
         },
         {
+            "name": "UserCardComponent",
+            "id": "component-UserCardComponent-4200d72f403b4fbdb25e9ce20628f3547cc206bdd55767e1739aa608aa40389446023438ddf9b2015a83128615ebd594c4e36f4e10b2d534cd43dc5126ce7170",
+            "file": "src/app/features/users/components/user-card/user-card.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-user-card",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./user-card.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "user",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "User",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "required": true
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "router",
+                    "defaultValue": "inject(Router)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onCardClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 16,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CardModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, inject, input } from '@angular/core';\nimport { Router } from '@angular/router';\nimport { CardModule } from 'primeng/card';\nimport { User } from '../../models/user.model';\n\n@Component({\n  selector: 'app-user-card',\n  standalone: true,\n  imports: [CardModule],\n  templateUrl: './user-card.component.html',\n})\nexport class UserCardComponent {\n  user = input.required<User>();\n  private readonly router = inject(Router);\n\n  onCardClick() {\n    this.router.navigate(['/users', this.user().id]);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p-card (click)=\"onCardClick()\" class=\"cursor-pointer hover:shadow-lg transition-shadow duration-200 max-w-[200px]\">\n  <ng-template #header>\n    <div class=\"flex justify-center pt-4\">\n      <div\n        class=\"flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30\"\n      >\n        <i class=\"pi pi-user text-2xl text-amber-600 dark:text-amber-400\"></i>\n      </div>\n    </div>\n  </ng-template>\n\n  <div class=\"flex flex-col gap-3 text-center\">\n    <div>\n      <h3\n        class=\"font-semibold text-gray-900 dark:text-white text-sm truncate\"\n        [title]=\"user().name\"\n      >\n        {{ user().name }}\n      </h3>\n    </div>\n\n    <div>\n      <p class=\"text-xs text-gray-600 dark:text-gray-400 truncate\" [title]=\"user().email\">\n        {{ user().email }}\n      </p>\n    </div>\n\n    <div class=\"flex justify-center\">\n      <span\n        class=\"inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-400 truncate max-w-full\"\n        [title]=\"user().company.name\"\n      >\n        {{ user().company.name }}\n      </span>\n    </div>\n  </div>\n</p-card>\n"
+        },
+        {
+            "name": "UserCardSkeletonComponent",
+            "id": "component-UserCardSkeletonComponent-25bee3497a371a159905a82707aa7d7538ba082a0d060c9ae6dc40606028d9c930787466e8ea26497f9adc69d7f694b649d8951f1ccf962bb34b7d69d402d7bc",
+            "file": "src/app/features/users/components/user-card-skeleton/user-card-skeleton.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-user-card-skeleton",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./user-card-skeleton.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CardModule",
+                    "type": "module"
+                },
+                {
+                    "name": "SkeletonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CardModule } from 'primeng/card';\nimport { SkeletonModule } from 'primeng/skeleton';\n\n@Component({\n  selector: 'app-user-card-skeleton',\n  standalone: true,\n  imports: [CardModule, SkeletonModule],\n  templateUrl: './user-card-skeleton.component.html',\n})\nexport class UserCardSkeletonComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p-card class=\"max-w-[200px]\">\n  <ng-template #header>\n    <div class=\"flex justify-center pt-4\">\n      <p-skeleton shape=\"circle\" size=\"3rem\"></p-skeleton>\n    </div>\n  </ng-template>\n\n  <div class=\"flex flex-col gap-3\">\n    <div class=\"text-center\">\n      <p-skeleton width=\"80%\" height=\"1.5rem\" class=\"mb-2\"></p-skeleton>\n      <p-skeleton width=\"60%\" height=\"1rem\"></p-skeleton>\n    </div>\n\n    <div class=\"text-center\">\n      <p-skeleton width=\"70%\" height=\"0.875rem\"></p-skeleton>\n    </div>\n  </div>\n</p-card>\n"
+        },
+        {
+            "name": "UserDetailComponent",
+            "id": "component-UserDetailComponent-75858523663f48166e5f24d8c64c9dbccdadba558179e8b05626080222cf85405f6107cb96e01cda297408bcea3753bd68e29f2fde9ad4b4ea1e68bc52238119",
+            "file": "src/app/features/users/components/user-detail/user-detail.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-user-detail",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./user-detail.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 15,
+                    "required": true
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "router",
+                    "defaultValue": "inject(Router)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                },
+                {
+                    "name": "store",
+                    "defaultValue": "inject(UserStore)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        148
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "goBack",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 34,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 30,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CardModule",
+                    "type": "module"
+                },
+                {
+                    "name": "ButtonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "UserDetailSkeletonComponent",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, effect, inject, input, OnDestroy } from '@angular/core';\nimport { Router } from '@angular/router';\nimport { CardModule } from 'primeng/card';\nimport { ButtonModule } from 'primeng/button';\nimport { UserStore } from '../../store/user.store';\nimport { UserDetailSkeletonComponent } from '../user-detail-skeleton/user-detail-skeleton.component';\n\n@Component({\n  selector: 'app-user-detail',\n  standalone: true,\n  imports: [CardModule, ButtonModule, UserDetailSkeletonComponent],\n  templateUrl: './user-detail.component.html',\n})\nexport class UserDetailComponent implements OnDestroy {\n  id = input.required<string>();\n\n  private readonly router = inject(Router);\n  readonly store = inject(UserStore);\n\n  constructor() {\n    effect(() => {\n      const userId = this.id();\n      if (userId) {\n        // Faz o fetch do usuário pela API\n        this.store.loadUserById(+userId);\n      }\n    });\n  }\n\n  ngOnDestroy() {\n    this.store.clearSelectedUser();\n  }\n\n  goBack() {\n    this.router.navigate(['/users']);\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 18
+            },
+            "extends": [],
+            "implements": [
+                "OnDestroy"
+            ],
+            "templateData": "<div class=\"max-w-[900px] mx-auto\">\n  <div class=\"mb-6\">\n    <button\n      pButton\n      icon=\"pi pi-arrow-left\"\n      label=\"Back to Users\"\n      class=\"p-button-text\"\n      (click)=\"goBack()\"\n    ></button>\n  </div>\n\n  @if (store.isLoading()) {\n    <app-user-detail-skeleton />\n  } @else if (store.error()) {\n  <div class=\"flex flex-col items-center gap-4 py-12\">\n    <i class=\"pi pi-exclamation-circle text-6xl text-red-500\"></i>\n    <span class=\"text-red-600 dark:text-red-400 font-medium\">Error: {{ store.error() }}</span>\n  </div>\n  } @else if (store.selectedUser()) {\n  <p-card>\n    <ng-template #header>\n      <div class=\"flex justify-center py-8 bg-gradient-to-r from-amber-100 to-amber-200 dark:from-amber-900/30 dark:to-amber-800/30\">\n        <div\n          class=\"flex items-center justify-center w-24 h-24 rounded-full bg-white dark:bg-gray-800 shadow-lg\"\n        >\n          <i class=\"pi pi-user text-5xl text-amber-600 dark:text-amber-400\"></i>\n        </div>\n      </div>\n    </ng-template>\n\n    <div class=\"flex flex-col gap-6\">\n      <div class=\"text-center\">\n        <h2 class=\"text-3xl font-bold text-gray-900 dark:text-white mb-2\">\n          {{ store.selectedUser()!.name }}\n        </h2>\n        <p class=\"text-gray-600 dark:text-gray-400\">@{{ store.selectedUser()!.username }}</p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n        <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n          <h3 class=\"text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2 flex items-center gap-2\">\n            <i class=\"pi pi-envelope\"></i>\n            Email\n          </h3>\n          <p class=\"text-sm text-gray-900 dark:text-white\">\n            {{ store.selectedUser()!.email }}\n          </p>\n        </div>\n\n        <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n          <h3 class=\"text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2 flex items-center gap-2\">\n            <i class=\"pi pi-phone\"></i>\n            Phone\n          </h3>\n          <p class=\"text-sm text-gray-900 dark:text-white\">\n            {{ store.selectedUser()!.phone }}\n          </p>\n        </div>\n\n        <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n          <h3 class=\"text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2 flex items-center gap-2\">\n            <i class=\"pi pi-globe\"></i>\n            Website\n          </h3>\n          <p class=\"text-sm text-gray-900 dark:text-white\">\n            {{ store.selectedUser()!.website }}\n          </p>\n        </div>\n\n        <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n          <h3 class=\"text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2 flex items-center gap-2\">\n            <i class=\"pi pi-map-marker\"></i>\n            Address\n          </h3>\n          <p class=\"text-sm text-gray-900 dark:text-white\">\n            {{ store.selectedUser()!.address.street }}, {{ store.selectedUser()!.address.suite }}<br>\n            {{ store.selectedUser()!.address.city }} - {{ store.selectedUser()!.address.zipcode }}\n          </p>\n        </div>\n      </div>\n\n      <div class=\"bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20 rounded-lg p-6 border border-amber-200 dark:border-amber-700\">\n        <h3 class=\"text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2\">\n          <i class=\"pi pi-building text-amber-600 dark:text-amber-400\"></i>\n          Company\n        </h3>\n        <div class=\"space-y-2\">\n          <p class=\"text-xl font-bold text-gray-900 dark:text-white\">\n            {{ store.selectedUser()!.company.name }}\n          </p>\n          <p class=\"text-sm text-gray-700 dark:text-gray-300 italic\">\n            \"{{ store.selectedUser()!.company.catchPhrase }}\"\n          </p>\n          <p class=\"text-xs text-gray-600 dark:text-gray-400\">\n            <span class=\"font-semibold\">Focus:</span> {{ store.selectedUser()!.company.bs }}\n          </p>\n        </div>\n      </div>\n    </div>\n  </p-card>\n  }\n</div>\n"
+        },
+        {
+            "name": "UserDetailSkeletonComponent",
+            "id": "component-UserDetailSkeletonComponent-5a37165860fd7d7b6d52daa080b9f5c041d09707c26130a215ea238ce3eaa0a1088b6f5405a2a62bcabeea6b209dba1e92932c7107f83137f8b05eda7eaa9d30",
+            "file": "src/app/features/users/components/user-detail-skeleton/user-detail-skeleton.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-user-detail-skeleton",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./user-detail-skeleton.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CardModule",
+                    "type": "module"
+                },
+                {
+                    "name": "SkeletonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CardModule } from 'primeng/card';\nimport { SkeletonModule } from 'primeng/skeleton';\n\n@Component({\n  selector: 'app-user-detail-skeleton',\n  standalone: true,\n  imports: [CardModule, SkeletonModule],\n  templateUrl: './user-detail-skeleton.component.html',\n})\nexport class UserDetailSkeletonComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<p-card class=\"max-w-[900px] mx-auto\">\n  <ng-template #header>\n    <div class=\"flex justify-center py-8 bg-gradient-to-r from-amber-100 to-amber-200 dark:from-amber-900/30 dark:to-amber-800/30\">\n      <p-skeleton shape=\"circle\" size=\"6rem\"></p-skeleton>\n    </div>\n  </ng-template>\n\n  <div class=\"flex flex-col gap-6\">\n    <!-- Name and username -->\n    <div class=\"text-center\">\n      <p-skeleton width=\"60%\" height=\"2rem\" class=\"mb-2\"></p-skeleton>\n      <p-skeleton width=\"40%\" height=\"1rem\"></p-skeleton>\n    </div>\n\n    <!-- Info grid -->\n    <div class=\"grid grid-cols-1 md:grid-cols-2 gap-4\">\n      <!-- Email -->\n      <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n        <p-skeleton width=\"4rem\" height=\"1rem\" class=\"mb-2\"></p-skeleton>\n        <p-skeleton width=\"80%\" height=\"0.875rem\"></p-skeleton>\n      </div>\n\n      <!-- Phone -->\n      <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n        <p-skeleton width=\"4rem\" height=\"1rem\" class=\"mb-2\"></p-skeleton>\n        <p-skeleton width=\"70%\" height=\"0.875rem\"></p-skeleton>\n      </div>\n\n      <!-- Website -->\n      <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n        <p-skeleton width=\"5rem\" height=\"1rem\" class=\"mb-2\"></p-skeleton>\n        <p-skeleton width=\"75%\" height=\"0.875rem\"></p-skeleton>\n      </div>\n\n      <!-- Address -->\n      <div class=\"bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4\">\n        <p-skeleton width=\"5rem\" height=\"1rem\" class=\"mb-2\"></p-skeleton>\n        <p-skeleton width=\"90%\" height=\"0.875rem\" class=\"mb-1\"></p-skeleton>\n        <p-skeleton width=\"60%\" height=\"0.875rem\"></p-skeleton>\n      </div>\n    </div>\n\n    <!-- Company section -->\n    <div class=\"bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-800/20 rounded-lg p-6 border border-amber-200 dark:border-amber-700\">\n      <p-skeleton width=\"6rem\" height=\"1.25rem\" class=\"mb-3\"></p-skeleton>\n      <p-skeleton width=\"70%\" height=\"1.5rem\" class=\"mb-2\"></p-skeleton>\n      <p-skeleton width=\"85%\" height=\"1rem\" class=\"mb-2\"></p-skeleton>\n      <p-skeleton width=\"50%\" height=\"0.875rem\"></p-skeleton>\n    </div>\n  </div>\n</p-card>\n"
+        },
+        {
             "name": "UserListComponent",
-            "id": "component-UserListComponent-3a9ceaa4a0602ee120c9030da2223b2c2d5f73acecef2db902720c7a35e6653ba8452eaa6edf98b18cf14ae6a1bda96b03572ea2a4e2320fb780f56d0f860124",
+            "id": "component-UserListComponent-5c757bc03115742909bcf37b278eaf14df574f29c49145e76dd77c36a2b49017f3921acda001935e5657f05df25554b7fcc685b1f1592014c8f3ea27df07badb",
             "file": "src/app/features/users/components/user-list/user-list.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -335,6 +794,20 @@
             "outputsClass": [],
             "propertiesClass": [
                 {
+                    "name": "searchControl",
+                    "defaultValue": "new FormControl('', { nonNullable: true })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "modifierKind": [
+                        148
+                    ]
+                },
+                {
                     "name": "store",
                     "defaultValue": "inject(UserStore)",
                     "deprecated": false,
@@ -343,7 +816,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 12,
+                    "line": 15,
                     "modifierKind": [
                         148
                     ]
@@ -356,7 +829,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 14,
+                    "line": 18,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -368,14 +841,22 @@
             "standalone": true,
             "imports": [
                 {
-                    "name": "TableModule",
-                    "type": "module"
+                    "name": "UserCardComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "SearchInputComponent",
+                    "type": "component"
+                },
+                {
+                    "name": "UserCardSkeletonComponent",
+                    "type": "component"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, effect, inject, OnInit } from '@angular/core';\nimport { TableModule } from 'primeng/table';\nimport { UserStore } from '../../store/user.store';\n\n@Component({\n  selector: 'app-user-list',\n  standalone: true,\n  imports: [TableModule],\n  templateUrl: './user-list.component.html',\n})\nexport class UserListComponent implements OnInit {\n  readonly store = inject(UserStore);\n\n  ngOnInit() {\n    this.store.loadUsers();\n  }\n}\n",
+            "sourceCode": "import { Component, inject, OnInit } from '@angular/core';\nimport { FormControl } from '@angular/forms';\nimport { UserStore } from '../../store/user.store';\nimport { UserCardComponent } from '../user-card/user-card.component';\nimport { SearchInputComponent } from '../../../../shared/components/search-input/search-input.component';\nimport { UserCardSkeletonComponent } from '../user-card-skeleton/user-card-skeleton.component';\n\n@Component({\n  selector: 'app-user-list',\n  standalone: true,\n  imports: [UserCardComponent, SearchInputComponent, UserCardSkeletonComponent],\n  templateUrl: './user-list.component.html',\n})\nexport class UserListComponent implements OnInit {\n  readonly store = inject(UserStore);\n  readonly searchControl = new FormControl('', { nonNullable: true });\n\n  ngOnInit() {\n    this.store.loadUsers();\n    this.store.searchUsers(this.searchControl.valueChanges);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -383,7 +864,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"card\">\n  <p-table\n    [value]=\"store.users()\"\n    [loading]=\"store.isLoading()\"\n    [tableStyle]=\"{ 'min-width': '50rem' }\"\n    styleClass=\"p-datatable-striped\"\n  >\n    <ng-template pTemplate=\"header\">\n      <tr>\n        <th>Name</th>\n        <th>Email</th>\n        <th>Company</th>\n      </tr>\n    </ng-template>\n    <ng-template pTemplate=\"body\" let-user>\n      <tr>\n        <td>{{ user.name }}</td>\n        <td>{{ user.email }}</td>\n        <td>{{ user.company.name }}</td>\n      </tr>\n    </ng-template>\n    <ng-template pTemplate=\"emptymessage\">\n      <tr>\n        <td colspan=\"3\" class=\"text-center\">\n          @if (store.error()) {\n            <span class=\"text-red-500\">Error: {{ store.error() }}</span>\n          } @else {\n            <span>No users found</span>\n          }\n        </td>\n      </tr>\n    </ng-template>\n  </p-table>\n</div>\n"
+            "templateData": "<div class=\"max-w-7xl mx-auto\">\n  <div class=\"mb-6\">\n    <h2 class=\"text-3xl font-bold text-gray-900 dark:text-white\">Users</h2>\n    <p class=\"mt-1 text-sm text-gray-600 dark:text-gray-400\">\n      Manage and view all users in the system\n    </p>\n  </div>\n\n  <div class=\"mb-6\">\n    <app-search-input [control]=\"searchControl\" placeholder=\"Search users by name...\" />\n  </div>\n\n  @if (store.isLoading()) {\n    <div class=\"grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4\">\n      @for (i of [1,2,3,4,5,6]; track i) {\n        <app-user-card-skeleton />\n      }\n    </div>\n  } @else if (store.error()) {\n  <div class=\"flex flex-col items-center gap-4 py-12\">\n    <i class=\"pi pi-exclamation-circle text-6xl text-red-500\"></i>\n    <span class=\"text-red-600 dark:text-red-400 font-medium\">Error: {{ store.error() }}</span>\n  </div>\n  } @else if (store.users().length === 0) {\n  <div class=\"flex flex-col items-center gap-4 py-12\">\n    <i class=\"pi pi-users text-6xl text-gray-400\"></i>\n    <span class=\"text-gray-500 dark:text-gray-400\">No users found</span>\n  </div>\n  } @else {\n  <div class=\"grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4\">\n    @for (user of store.users(); track user.id) {\n      <app-user-card [user]=\"user\" />\n    }\n  </div>\n  }\n</div>\n"
         }
     ],
     "modules": [],
@@ -397,7 +878,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
-                "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes),\n    provideHttpClient()\n  ]\n}"
+                "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes, withComponentInputBinding()),\n    provideHttpClient(),\n    providePrimeNG({\n      theme: {\n        preset: Aura,\n        options: {\n          darkModeSelector: '.dark',\n        },\n      },\n    }),\n  ],\n}"
             },
             {
                 "name": "initialState",
@@ -407,7 +888,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "UserState",
-                "defaultValue": "{\n  users: [],\n  isLoading: false,\n  error: null,\n}"
+                "defaultValue": "{\n  users: [],\n  selectedUserId: null,\n  isLoading: false,\n  error: null,\n}"
             },
             {
                 "name": "routes",
@@ -417,7 +898,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Routes",
-                "defaultValue": "[\n  {\n    path: '',\n    redirectTo: 'users',\n    pathMatch: 'full',\n  },\n  {\n    path: 'users',\n    loadComponent: () =>\n      \"import('./features/users/components/user-list/user-list.component').then(\\n\\\n        (m) => m.UserListComponent\\n\\\n      )\",\n  },\n]"
+                "defaultValue": "[\n  {\n    path: '',\n    redirectTo: 'users',\n    pathMatch: 'full',\n  },\n  {\n    path: 'users',\n    loadComponent: () =>\n      \"import('./features/users/components/user-list/user-list.component').then(\\n\\\n        (m) => m.UserListComponent\\n\\\n      )\",\n  },\n  {\n    path: 'users/:id',\n    loadComponent: () =>\n      \"import('./features/users/components/user-detail/user-detail.component').then(\\n\\\n        (m) => m.UserDetailComponent\\n\\\n      )\",\n  },\n]"
             },
             {
                 "name": "UserStore",
@@ -427,7 +908,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "unknown",
-                "defaultValue": "signalStore(\n  { providedIn: 'root' },\n  withState(initialState),\n  withMethods((store, userService = inject(UserService)) => ({\n    loadUsers: rxMethod<void>(\n      pipe(\n        switchMap(() => {\n          patchState(store, { isLoading: true, error: null });\n          return userService.getUsers().pipe(\n            tapResponse({\n              next: (users) => patchState(store, { users, isLoading: false }),\n              error: (error: Error) =>\n                patchState(store, {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n  }))\n)"
+                "defaultValue": "signalStore(\n  { providedIn: 'root' },\n  withState(initialState),\n  withDevtools('[UserStore]'),\n  withComputed((store) => ({\n    selectedUser: computed(() => {\n      const userId = store.selectedUserId();\n      return store.users().find((user) => user.id === userId) ?? null;\n    }),\n  })),\n  withMethods((store, userService = inject(UserService)) => ({\n    loadUsers: rxMethod<void>(\n      pipe(\n        switchMap(() => {\n          updateState(store, '[users] load users started', { isLoading: true, error: null });\n          return userService.getUsers().pipe(\n            tapResponse({\n              next: (users) =>\n                updateState(store, '[users] load users success', { users, isLoading: false }),\n              error: (error: Error) =>\n                updateState(store, '[users] load users error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n    loadUserById: rxMethod<number>(\n      pipe(\n        switchMap((userId) => {\n          updateState(store, '[users] load user by id started', {\n            isLoading: true,\n            error: null,\n            selectedUserId: userId,\n          });\n          return userService.getUserById(userId).pipe(\n            tapResponse({\n              next: (user) => {\n                // Adiciona ou atualiza o usuário na lista de usuários\n                const currentUsers = store.users();\n                const existingIndex = currentUsers.findIndex((u) => u.id === user.id);\n                const updatedUsers =\n                  existingIndex >= 0\n                    ? currentUsers.map((u) => (u.id === user.id ? user : u))\n                    : [...currentUsers, user];\n\n                updateState(store, '[users] load user by id success', {\n                  users: updatedUsers,\n                  isLoading: false,\n                });\n              },\n              error: (error: Error) =>\n                updateState(store, '[users] load user by id error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n    selectUser(userId: number) {\n      updateState(store, '[users] select user', { selectedUserId: userId });\n    },\n    clearSelectedUser() {\n      updateState(store, '[users] clear selected user', { selectedUserId: null });\n    },\n    searchUsers: rxMethod<string>(\n      pipe(\n        debounceTime(300),\n        switchMap((query) => {\n          updateState(store, '[users] search users started', { isLoading: true, error: null });\n          return userService.searchUsers(query).pipe(\n            tapResponse({\n              next: (users) =>\n                updateState(store, '[users] search users success', { users, isLoading: false }),\n              error: (error: Error) =>\n                updateState(store, '[users] search users error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n  }))\n)"
             }
         ],
         "functions": [],
@@ -455,7 +936,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ApplicationConfig",
-                    "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes),\n    provideHttpClient()\n  ]\n}"
+                    "defaultValue": "{\n  providers: [\n    provideBrowserGlobalErrorListeners(),\n    provideRouter(routes, withComponentInputBinding()),\n    provideHttpClient(),\n    providePrimeNG({\n      theme: {\n        preset: Aura,\n        options: {\n          darkModeSelector: '.dark',\n        },\n      },\n    }),\n  ],\n}"
                 }
             ],
             "src/app/features/users/store/user.store.ts": [
@@ -467,7 +948,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "UserState",
-                    "defaultValue": "{\n  users: [],\n  isLoading: false,\n  error: null,\n}"
+                    "defaultValue": "{\n  users: [],\n  selectedUserId: null,\n  isLoading: false,\n  error: null,\n}"
                 },
                 {
                     "name": "UserStore",
@@ -477,7 +958,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "unknown",
-                    "defaultValue": "signalStore(\n  { providedIn: 'root' },\n  withState(initialState),\n  withMethods((store, userService = inject(UserService)) => ({\n    loadUsers: rxMethod<void>(\n      pipe(\n        switchMap(() => {\n          patchState(store, { isLoading: true, error: null });\n          return userService.getUsers().pipe(\n            tapResponse({\n              next: (users) => patchState(store, { users, isLoading: false }),\n              error: (error: Error) =>\n                patchState(store, {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n  }))\n)"
+                    "defaultValue": "signalStore(\n  { providedIn: 'root' },\n  withState(initialState),\n  withDevtools('[UserStore]'),\n  withComputed((store) => ({\n    selectedUser: computed(() => {\n      const userId = store.selectedUserId();\n      return store.users().find((user) => user.id === userId) ?? null;\n    }),\n  })),\n  withMethods((store, userService = inject(UserService)) => ({\n    loadUsers: rxMethod<void>(\n      pipe(\n        switchMap(() => {\n          updateState(store, '[users] load users started', { isLoading: true, error: null });\n          return userService.getUsers().pipe(\n            tapResponse({\n              next: (users) =>\n                updateState(store, '[users] load users success', { users, isLoading: false }),\n              error: (error: Error) =>\n                updateState(store, '[users] load users error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n    loadUserById: rxMethod<number>(\n      pipe(\n        switchMap((userId) => {\n          updateState(store, '[users] load user by id started', {\n            isLoading: true,\n            error: null,\n            selectedUserId: userId,\n          });\n          return userService.getUserById(userId).pipe(\n            tapResponse({\n              next: (user) => {\n                // Adiciona ou atualiza o usuário na lista de usuários\n                const currentUsers = store.users();\n                const existingIndex = currentUsers.findIndex((u) => u.id === user.id);\n                const updatedUsers =\n                  existingIndex >= 0\n                    ? currentUsers.map((u) => (u.id === user.id ? user : u))\n                    : [...currentUsers, user];\n\n                updateState(store, '[users] load user by id success', {\n                  users: updatedUsers,\n                  isLoading: false,\n                });\n              },\n              error: (error: Error) =>\n                updateState(store, '[users] load user by id error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n    selectUser(userId: number) {\n      updateState(store, '[users] select user', { selectedUserId: userId });\n    },\n    clearSelectedUser() {\n      updateState(store, '[users] clear selected user', { selectedUserId: null });\n    },\n    searchUsers: rxMethod<string>(\n      pipe(\n        debounceTime(300),\n        switchMap((query) => {\n          updateState(store, '[users] search users started', { isLoading: true, error: null });\n          return userService.searchUsers(query).pipe(\n            tapResponse({\n              next: (users) =>\n                updateState(store, '[users] search users success', { users, isLoading: false }),\n              error: (error: Error) =>\n                updateState(store, '[users] search users error', {\n                  error: error.message,\n                  isLoading: false,\n                }),\n            })\n          );\n        })\n      )\n    ),\n  }))\n)"
                 }
             ],
             "src/app/app.routes.ts": [
@@ -489,7 +970,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Routes",
-                    "defaultValue": "[\n  {\n    path: '',\n    redirectTo: 'users',\n    pathMatch: 'full',\n  },\n  {\n    path: 'users',\n    loadComponent: () =>\n      \"import('./features/users/components/user-list/user-list.component').then(\\n\\\n        (m) => m.UserListComponent\\n\\\n      )\",\n  },\n]"
+                    "defaultValue": "[\n  {\n    path: '',\n    redirectTo: 'users',\n    pathMatch: 'full',\n  },\n  {\n    path: 'users',\n    loadComponent: () =>\n      \"import('./features/users/components/user-list/user-list.component').then(\\n\\\n        (m) => m.UserListComponent\\n\\\n      )\",\n  },\n  {\n    path: 'users/:id',\n    loadComponent: () =>\n      \"import('./features/users/components/user-detail/user-detail.component').then(\\n\\\n        (m) => m.UserDetailComponent\\n\\\n      )\",\n  },\n]"
                 }
             ]
         },
@@ -517,6 +998,11 @@
         "children": [
             {
                 "name": "users",
+                "kind": "route-path",
+                "filename": "src/app/app.routes.ts"
+            },
+            {
+                "name": "users/:id",
                 "kind": "route-path",
                 "filename": "src/app/app.routes.ts"
             },
@@ -561,12 +1047,48 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/features/users/components/user-card-skeleton/user-card-skeleton.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UserCardSkeletonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/features/users/components/user-card/user-card.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UserCardComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/features/users/components/user-detail-skeleton/user-detail-skeleton.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UserDetailSkeletonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/features/users/components/user-detail/user-detail.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "UserDetailComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/features/users/components/user-list/user-list.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "UserListComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -575,7 +1097,7 @@
                 "linktype": "interface",
                 "name": "User",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -584,7 +1106,7 @@
                 "linktype": "injectable",
                 "name": "UserService",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
@@ -615,6 +1137,15 @@
                 "name": "UserState",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/search-input/search-input.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SearchInputComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {

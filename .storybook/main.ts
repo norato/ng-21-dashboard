@@ -10,27 +10,6 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-onboarding"
   ],
-  "framework": "@storybook/angular",
-  "webpackFinal": async (config) => {
-    config.module = config.module || {};
-    config.module.rules = config.module.rules || [];
-
-    // Add CSS loader for .storybook CSS files
-    config.module.rules.push({
-      test: /\.css$/,
-      include: /\.storybook/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-          },
-        },
-      ],
-    });
-
-    return config;
-  }
+  "framework": "@storybook/angular"
 };
 export default config;
