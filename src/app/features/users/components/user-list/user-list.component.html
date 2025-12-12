@@ -1,0 +1,34 @@
+<div class="card">
+  <p-table
+    [value]="store.users()"
+    [loading]="store.isLoading()"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    class="p-datatable-striped"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.company.name }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="3" class="text-center">
+          @if (store.error()) {
+          <span class="text-red-500">Error: {{ store.error() }}</span>
+          } @else {
+          <span>No users found</span>
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
