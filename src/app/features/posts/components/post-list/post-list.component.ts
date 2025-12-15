@@ -39,7 +39,10 @@ export class PostListComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
+        // Limpa cache da store (dispara named action) + localStorage
+        this.store.dispatch(PostActions.clearCache());
         clearFromLocalStorage(STORAGE_KEYS.POSTS_STATE);
+        // Força novo fetch
         this.store.dispatch(PostActions.loadPosts());
       });
   }

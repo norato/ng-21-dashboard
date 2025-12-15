@@ -35,7 +35,10 @@ export class UserListComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(() => {
+        // Limpa cache da store (dispara named action) + localStorage
+        this.store.clearCache();
         clearFromLocalStorage(STORAGE_KEYS.USER_STATE);
+        // Força novo fetch
         this.store.loadUsers();
       });
   }

@@ -9,9 +9,9 @@ export function postsPersistenceMetaReducer(
   return (state, action) => {
     const nextState = reducer(state, action);
 
-    // Persist posts after successful load
+    // Persist full state (posts + timestamp) after successful load
     if (action.type === PostActions.loadPostsSuccess.type) {
-      saveToLocalStorage(STORAGE_KEYS.POSTS_STATE, nextState.posts);
+      saveToLocalStorage(STORAGE_KEYS.POSTS_STATE, nextState);
     }
 
     return nextState;
