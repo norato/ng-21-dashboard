@@ -1,55 +1,55 @@
-# User Dashboard
+# Dashboard de Usuários
 
-Angular 20 dashboard application with modern tooling and component library.
+Aplicação de dashboard em Angular 20 com ferramentas modernas e biblioteca de componentes.
 
 ## Stack
 
 - **Angular 20** - Framework
-- **PrimeNG 20** - UI component library
-- **@ngrx/signals** - Signal-based state management
-- **@ngrx/store + @ngrx/effects** - Classic Redux state management
-- **@angular-architects/ngrx-toolkit** - Enhanced NgRx DevTools traceability with named actions
-- **Tailwind CSS v4** - Styling
-- **Vitest** - Unit testing
-- **Playwright** - E2E testing
-- **ng-mocks** - Testing utilities
-- **Storybook** - Component documentation
+- **PrimeNG 20** - Biblioteca de componentes UI
+- **@ngrx/signals** - Gerenciamento de estado baseado em Signals
+- **@ngrx/store + @ngrx/effects** - Gerenciamento de estado Redux clássico
+- **@angular-architects/ngrx-toolkit** - Debug do NgRx DevTools com ações nomeadas
+- **Tailwind CSS v4** - Estilização
+- **Vitest** - Testes unitários
+- **Playwright** - Testes E2E
+- **ng-mocks** - Utilitários de teste
+- **Storybook** - Documentação de componentes
 
-## Project Configuration
+## Configuração do Projeto
 
-### Environment Variables
-The application uses Angular's environment configuration pattern for managing environment-specific settings:
-- **environment.ts** - Base configuration (development)
-- **environment.development.ts** - Development-specific settings
-- **environment.production.ts** - Production-specific settings
+### Variáveis de Ambiente
+A aplicação utiliza o padrão de configuração de ambiente do Angular para gerenciar configurações específicas de ambiente:
+- **environment.ts** - Configuração base (desenvolvimento)
+- **environment.development.ts** - Configurações específicas de desenvolvimento
+- **environment.production.ts** - Configurações específicas de produção
 
-Configuration includes `apiUrl` and other environment-specific values. The build process uses `fileReplacements` in `angular.json` to swap environments based on the build configuration.
+A configuração inclui `apiUrl` e outros valores específicos do ambiente. O processo de build utiliza `fileReplacements` no `angular.json` para trocar os ambientes com base na configuração de build.
 
-### TypeScript Path Mapping
-Clean imports using custom path aliases defined in `tsconfig.json`:
-- **`$env`** - Direct access to environment configuration
-- **`$core`** - Core functionality (services, interceptors, constants)
-- **`$core/*`** - Granular access to core modules
-- **`$shared`** - Shared components via barrel exports
-- **`$shared/*`** - Granular access to shared modules
+### Path Resolution
+Importações limpas usando aliases de caminho personalizados definidos em `tsconfig.json`:
+- **`$env`** - Acesso direto à configuração do ambiente
+- **`$core`** - Funcionalidades centrais (serviços, interceptors, constantes)
+- **`$core/*`** - Acesso granular a módulos centrais
+- **`$shared`** - Componentes compartilhados via barrel exports
+- **`$shared/*`** - Acesso granular a módulos compartilhados
 
-This eliminates deep relative imports like `../../../../` and improves code maintainability.
+Isso elimina importações relativas profundas como `../../../../` e melhora a manutenibilidade do código.
 
-## Development
+## Desenvolvimento
 
 ```bash
-# Install dependencies
+# Instalar dependências
 npm install
 
-# Start dev server (http://localhost:4200)
+# Iniciar servidor de desenvolvimento (http://localhost:4200)
 npm run dev
 
-# Run unit tests
+# Executar testes unitários
 npm test
 
-# Run E2E tests
+# Executar testes E2E
 npm run test:e2e
-npm run test:e2e:ui  # with UI
+npm run test:e2e:ui  # com UI
 
 # Storybook (http://localhost:6006)
 npm run storybook
@@ -61,112 +61,116 @@ npm run storybook
 npm run build
 ```
 
-## Features
+## Funcionalidades
 
-- Dark/Light theme toggle with persistence
-- User listing from JSONPlaceholder API
-- User search with debounce and request cancellation
-- Posts listing with NgRx classic store
-- Standalone components
-- Signal-based state management with named actions for better debugging
-- DDD (Domain-Driven Design) architecture
-- Skeleton screens for loading states (better UX than spinners)
-- Toast notifications for user-friendly error messages
-- Comprehensive test coverage
+- Alternância de tema Dark/Light com persistência
+- Listagem de usuários da API JSONPlaceholder
+- Busca de usuários com debounce e cancelamento de requisição
+- Listagem de posts com NgRx classic store
+- Componentes standalone
+- Gerenciamento de estado baseado em Signals com ações nomeadas para melhor debug
+- Arquitetura DDD (Domain-Driven Design)
+- Componente de skeleton para estados de carregamento (melhor UX que spinners)
+- Notificações Toast para mensagens de erro amigáveis ao usuário
+- Cobertura abrangente de testes
 
-## State Management Architecture
+## Arquitetura de Gerenciamento de Estado
 
-This project demonstrates proficiency with both modern and traditional NgRx approaches:
+Este projeto demonstra proficiência com abordagens NgRx modernas e tradicionais:
 
-### Users Feature - Signal Store (`@ngrx/signals`)
-The Users feature implements the modern signal-based approach using `@ngrx/signals`. This is my preferred approach for new applications due to its:
-- Simplified API with less boilerplate
-- Better TypeScript inference
-- Reactive composition with `rxMethod`
-- Seamless integration with Angular signals
-- Named actions via `@angular-architects/ngrx-toolkit` for enhanced debugging
+### Feature de Usuários - Signal Store (`@ngrx/signals`)
+A feature de Usuários implementa a abordagem moderna baseada em signals usando `@ngrx/signals`. Esta é a abordagem preferida para novas aplicações devido a:
+- API simplificada com menos boilerplate
+- Melhor inferência de TypeScript
+- Composição reativa com `rxMethod`
+- Integração perfeita com Angular signals
+- Ações nomeadas via `@angular-architects/ngrx-toolkit` para depuração aprimorada
 
-### Posts Feature - Classic Store (`@ngrx/store` + `@ngrx/effects`)
-To demonstrate comprehensive NgRx knowledge, the Posts feature implements the traditional Redux pattern with:
-- Actions created with `createAction`
-- Reducers using `createReducer`
-- Effects with `createEffect` for side effects
-- Selectors using `createSelector`
+### Feature de Posts - Classic Store (`@ngrx/store` + `@ngrx/effects`)
+Para demonstrar conhecimento abrangente do NgRx, a feature de Posts implementa o padrão Redux tradicional com:
+- Actions criadas com `createAction`
+- Reducers usando `createReducer`
+- Effects com `createEffect` para efeitos colaterais
+- Selectors usando `createSelector`
 
-Both implementations follow the same architectural principles (separation of concerns, testability, and maintainability) while showcasing different state management paradigms within the NgRx ecosystem.
+Ambas as implementações seguem os mesmos princípios arquiteturais (separação de preocupações, testabilidade e manutenibilidade), enquanto exibem diferentes paradigmas de gerenciamento de estado dentro do ecossistema NgRx.
 
-## Cache System
+## Sistema de Cache
 
-The application implements a client-side caching mechanism to reduce redundant API calls and provide immediate data access, using `localStorage` persistence with TTL validation and a Message Bus pattern for efficient component communication.
+A aplicação implementa um mecanismo de cache no lado do cliente para reduzir chamadas redundantes à API e fornecer acesso imediato aos dados, utilizando persistência no `localStorage` com validação de TTL e um padrão Message Bus para comunicação eficiente entre componentes.
 
-### Architecture Principles
+### Princípios da Arquitetura
 
-- **Message Bus Pattern**: `CacheMessageBus` service acts as a central communication hub for cache-related events
-- **localStorage Persistence**: Data stored client-side with TTL validation for freshness
-- **Page-Level Responsibility**: Feature pages register their active store and handle reload requests
-- **Zero Coupling**: Header components interact only with the `CacheMessageBus`, not specific stores
+- **Padrão Message Bus**: O serviço `CacheMessageBus` atua como um hub de comunicação central para eventos relacionados ao cache
+- **Persistência no localStorage**: Dados armazenados no lado do cliente com validação de TTL para garantir a atualização
+- **Responsabilidade em Nível de Página**: As páginas de feature registram sua store ativa e lidam com solicitações de recarregamento
+- **Acoplamento Zero**: Os componentes do cabeçalho interagem apenas com o `CacheMessageBus`, não com stores específicas
 
-### Key Components
+### Lógica de Cache em Nível de Store (Fluxo Interno)
 
-- **`CacheMessageBus`** (`src/app/core/services/cache-message-bus.service.ts`): Central event bus tracking the currently active store via `BehaviorSubject`
-- **`CacheStatusComponent`** (`src/app/shared/components/cache-status/`): Unified UI component displaying data age and reload button. Uses RxJS `interval()` with `takeUntilDestroyed()` for periodic updates (every 60s), providing automatic cleanup without manual lifecycle management
-- **Feature Pages**: `UserListComponent` and `PostListComponent` register which store they're using
-- **Stores/Effects**: `UserStore` and `PostEffects` notify when data is saved
+Cada store de feature gerencia seu próprio cache de dados dentro de seu estado, garantindo a atualização dos dados e o desempenho ideal:
 
-### Cache Flow
+1. **Carregamento Inicial e Verificação de Cache**: Ao carregar dados, a store primeiro verifica se os dados existem em seu estado e valida o timestamp `cachedAt` contra um TTL de 30 minutos. Se dados válidos forem encontrados, eles são usados imediatamente sem fazer uma chamada à API.
 
-1. **Page Activation**: When a page initializes, it registers its store with the cache bus
-   ```typescript
-   this.cacheBus.setActiveStore(STORAGE_KEYS.USER_STATE);
-   ```
+2. **Busca de Dados em Caso de Cache Miss**: Se o cache estiver vazio ou expirado, a store inicia uma solicitação à API para buscar dados atualizados do backend.
 
-2. **Reload Listener**: Pages subscribe to reload requests filtered by their store name
-   ```typescript
-   this.cacheBus.reloadRequested$
-     .pipe(filter((storeName) => storeName === STORAGE_KEYS.USER_STATE))
-     .subscribe(() => {
-       clearFromLocalStorage(STORAGE_KEYS.USER_STATE);
-       this.store.loadUsers();
-     });
-   ```
+3. **Atualização da Store e Timestamp**: Em resposta bem-sucedida da API, a store atualiza seu estado com os novos dados e registra o timestamp atual, marcando os dados como atualizados.
 
-3. **Data Saved Notification**: After successful data load, stores notify the cache bus
-   ```typescript
-   cacheBus.notifyDataSaved(STORAGE_KEYS.USER_STATE);
-   ```
+4. **Persistência no LocalStorage**: O estado completo da store, incluindo dados e timestamp `cachedAt`, é automaticamente persistido no `localStorage`, garantindo disponibilidade entre sessões do navegador.
 
-4. **Automatic UI Updates**: `CacheStatusComponent` reacts to active store changes, displaying "Atualizado há X minutos"
+5. **Invalidação de Cache ao Resetar**: Quando uma ação de "limpar cache" é acionada, a store reseta seu estado, limpando dados e anulando o timestamp `cachedAt`, forçando a próxima requisição a buscar dados atualizados.
 
-5. **Manual Reload**: Reload button clears `localStorage` and dispatches reload via the bus
+### Componentes Chave
 
-### Integration with State Management
+- **`CacheMessageBus`** (`src/app/core/services/cache-message-bus.service.ts`): Barramento de eventos central que rastreia a store atualmente ativa via `BehaviorSubject`
+- **`CacheStatusComponent`** (`src/app/shared/components/cache-status/`): Componente de UI unificado que exibe a idade dos dados e um botão de recarregar. Utiliza `interval()` do RxJS com `takeUntilDestroyed()` para atualizações periódicas (a cada 60s), fornecendo limpeza automática sem gerenciamento manual do ciclo de vida
+- **Páginas de Feature**: `UserListComponent` e `PostListComponent` registram qual store estão utilizando
+- **Stores/Effects**: `UserStore` e `PostEffects` notificam quando os dados são salvos
 
-**Signal-based NgRx (UserStore)**:
-- Calls `cacheBus.notifyDataSaved()` in `tapResponse` success handler
-- Uses `rxMethod` for reactive data loading
+### Fluxo de Cache (Comunicação Externa)
 
-**Classic NgRx (PostEffects)**:
-- Calls `cacheBus.notifyDataSaved()` in dedicated `notifyOnSuccess$` effect
-- Uses `createEffect` with `tap` operator
+Esta seção descreve como componentes interagem com o sistema de cache:
 
-## Error Handling
+1. **Ativação da Página**: Quando uma página de feature é inicializada, ela registra sua store de dados no `CacheMessageBus`, informando ao sistema qual conjunto de dados está atualmente ativo para monitoramento de cache.
 
-The application implements a two-tier error handling strategy using PrimeNG Toast:
+2. **Listener de Recarregamento**: As páginas de feature se inscrevem para solicitações de recarregamento de sua store registrada. Quando acionado, os dados são limpos do `localStorage` e o mecanismo de carregamento da store é ativado, seguindo a lógica interna de cache para buscar dados atualizados.
 
-### Global Error Interceptor
-HTTP errors with status codes 404 and 500 are handled globally by the `errorInterceptor`:
-- Displays generic, user-friendly toast messages
-- Centralized in `src/app/core/constants/global-errors.ts` for easy maintenance
-- Adding new global error codes only requires updating the `GLOBAL_ERROR_CODES` array
+3. **Notificação de Dados Salvos**: Após carregamento de dados bem-sucedido e atualização da store, a store notifica o `CacheMessageBus` que dados atualizados foram salvos.
 
-### Local Error Handling
-All other HTTP errors are handled locally in their respective stores:
-- **UserStore** (@ngrx/signals): Handles user-specific errors with contextual messages
-- **PostEffects** (@ngrx/effects): Handles post-specific errors with contextual messages
-- Stores check against `GLOBAL_ERROR_CODES` to avoid duplicate toast notifications
+4. **Atualizações Automáticas da UI**: O `CacheStatusComponent` escuta o `CacheMessageBus` para mudanças na store ativa e notificações de dados salvos, atualizando dinamicamente para mostrar a idade dos dados.
 
-### Benefits
-- **User-friendly messages**: Generic, non-technical error messages that don't expose implementation details
-- **Consistent UX**: All API errors are displayed via toast notifications at the top-right of the screen
-- **Security**: Technical error details (error.message) are kept in the application state for debugging but not shown to end users
-- **Maintainability**: Global error codes centralized in a single constant for easy updates
+5. **Recarregamento Manual**: O botão de recarregar limpa dados relevantes do `localStorage` e despacha uma solicitação de recarregamento via `CacheMessageBus`, acionando uma busca de dados atualizados.
+
+### Integração com Gerenciamento de Estado
+
+**NgRx baseado em Signals (UserStore)**:
+- Chama `cacheBus.notifyDataSaved()` no handler de sucesso `tapResponse`
+- Usa `rxMethod` para carregamento reativo de dados
+- A persistência é tratada por um `effect` do Angular que salva o estado completo no `localStorage`
+
+**NgRx Clássico (PostEffects)**:
+- Chama `cacheBus.notifyDataSaved()` em um effect dedicado `notifyOnSuccess$`
+- Usa `createEffect` com o operador `tap`
+- A persistência é tratada pelo reducer que inicializa a partir do `localStorage` e atualiza `postsCachedAt` em `loadPostsSuccess`
+
+## Tratamento de Erros
+
+A aplicação implementa uma estratégia de tratamento de erros em duas camadas usando PrimeNG Toast:
+
+### Interceptor de Erros Global
+Erros HTTP com códigos de status 404 e 500 são tratados globalmente pelo `errorInterceptor`:
+- Exibe mensagens toast genéricas e amigáveis ao usuário
+- Centralizado em `src/app/core/constants/global-errors.ts` para fácil manutenção
+- Adicionar novos códigos de erro globais requer apenas a atualização do array `GLOBAL_ERROR_CODES`
+
+### Tratamento de Erros Local
+Todos os outros erros HTTP são tratados localmente em suas respectivas stores:
+- **UserStore** (@ngrx/signals): Lida com erros específicos do usuário com mensagens contextuais
+- **PostEffects** (@ngrx/effects): Lida com erros específicos de posts com mensagens contextuais
+- As stores verificam em relação a `GLOBAL_ERROR_CODES` para evitar notificações toast duplicadas
+
+### Benefícios
+- **Mensagens amigáveis ao usuário**: Mensagens de erro genéricas e não técnicas que não expõem detalhes de implementação
+- **UX Consistente**: Todos os erros da API são exibidos via notificações toast no canto superior direito da tela
+- **Segurança**: Detalhes técnicos do erro (error.message) são mantidos no estado da aplicação para depuração, mas não são mostrados aos usuários finais
+- **Manutenibilidade**: Códigos de erro globais centralizados em uma única constante para fácil atualização
